@@ -1,0 +1,11 @@
+Use the following endpoint
+http://api.openweathermap.org/data/2.5/weather?q=London&appid=51feb6438334e6502cf871203e59a9af
+
+Store result in a variable called "response"
+
+response.json() returns the JSON format
+
+temp = response.json()['main']['temp']
+
+
+
