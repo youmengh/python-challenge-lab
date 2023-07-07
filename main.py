@@ -1,14 +1,53 @@
 import requests
 
-def check_input():
-    if (not x.isAlpha()):
+def input_valid(user):
+    if (not user.isalpha() and len(user) > 0):
         print("Invalid input (enter only alphabets)")
+        return False
+    else:
+        return True
 
-print('Enter the city (no abbreviations)')
-x = input()
+# def inputs():
+#     #enter inputs
+#     x = input('Enter the city (no abbreviations)')
+#     while (not input_valid(x)):
+#         x = input("Invalid input, Try again")
 
-print('Enter the State (no abbreviations)')
-y = input()
+#     y = input('Enter the State (no abbreviations)')
+#     while (not input_valid(y) ):
+#         y = input('Enter the State (no abbreviations)')
+#     return x,y
+
+# def inputs():
+#     x = input('Enter valid City')
+#     y = input('Enter valid State/country')
+#     if (not input_valid(x) or not input_valid(y)):
+#         x=""
+#         y=""
+#         return x,y
+#     else:
+#         return x,y
+
+# x,y = inputs()
+
+# if (x == ""):
+#     print('Invalid input try again')
+#     inputs()
+
+
+# user = ""
+# while (input_valid(user) == False):
+#     user.input('Enter the city (no abbreviations)')
+# x = user
+# user = ""
+# while (input_valid(user) == False):
+#     user.input('Enter the state (no abbreviations)')
+# y = user
+
+
+x = input('Enter the city (no abbreviations)')
+y = input('Enter the state (no abbreviations)')
+
 print('Enter C, F or K for me')
 z = input()
 unit = ""
