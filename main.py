@@ -1,3 +1,4 @@
+import config
 import requests
 
 def input_valid(user):
@@ -68,7 +69,7 @@ data = None
 # validate api call
 try:
     response = requests.get(
-        f"http://api.openweathermap.org/data/2.5/weather?q={x},{y}&limit=1&appid=51feb6438334e6502cf871203e59a9af&units={unit}")
+        f"http://api.openweathermap.org/data/2.5/weather?q={x},{y}&limit=1&appid={config.api_key}&units={unit}")
     response.raise_for_status()
     data = response.json()
 except requests.exceptions.RequestException as e:
