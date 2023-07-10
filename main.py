@@ -2,63 +2,47 @@ import config
 import requests
 
 def input_valid(user):
-    if (not user.isalpha() and len(user) > 0):
-        print("Invalid input (enter only alphabets)")
+    if (not user.isalpha() or not len(user) > 0):
         return False
     else:
         return True
 
-# def inputs():
-#     #enter inputs
-#     x = input('Enter the city (no abbreviations)')
-#     while (not input_valid(x)):
-#         x = input("Invalid input, Try again")
+def inputs():
+    #enter inputs
+    city = input('Enter the city (no abbreviations): ')
+    while (not input_valid(city)):
+        city = input("Invalid input, Try again: ")
 
-#     y = input('Enter the State (no abbreviations)')
-#     while (not input_valid(y) ):
-#         y = input('Enter the State (no abbreviations)')
-#     return x,y
+    state = input('Enter the State (no abbreviations): ')
+    while (not input_valid(state) ):
+        state = input("Invalid input, Try again: ")
 
-# def inputs():
-#     x = input('Enter valid City')
-#     y = input('Enter valid State/country')
-#     if (not input_valid(x) or not input_valid(y)):
-#         x=""
-#         y=""
-#         return x,y
-#     else:
-#         return x,y
+    unit = input('Enter C, F, or K to specify the unit: ')
+    while unit.upper() not in ('C', 'F', 'K'):
+        unit = input('Please select one of the three Availible options (C, F, or K): ')
+    
+    if (unit == "C"):
+        unit = "metric"
+    elif(unit == "F"):
+        unit = "imperial"
+    else:
+        unit = ""
 
-# x,y = inputs()
-
-# if (x == ""):
-#     print('Invalid input try again')
-#     inputs()
+    return city, state, unit
 
 
-# user = ""
-# while (input_valid(user) == False):
-#     user.input('Enter the city (no abbreviations)')
-# x = user
-# user = ""
-# while (input_valid(user) == False):
-#     user.input('Enter the state (no abbreviations)')
-# y = user
+#city,state, unit = inputs()
+userInput = {k:v for (k,v) in zip(("city", "state", "unit"), inputs())}
+print(userInput)
 
 
-""" x = input('Enter the city (no abbreviations)')
-y = input('Enter the state (no abbreviations)')
 
-print('Enter C, F or K for me')
-z = input()
-unit = ""
-if (z == "C"):
-    unit = "metric"
-elif(z == "F"):
-    unit = "imperial"
-else:
-    unit = ""
- """
+
+
+
+
+
+
 # validate user inputs
 # user should not enter a number
 
