@@ -23,3 +23,13 @@ Part 1.3 - Modules
 import request
 
 
+Contributors
+Youmeng Hin
+William Boafo
+Willsmaith Pochette
+Jacob Lettick
+Dhir Patel
+Brandon Chu
+Ayodele Odeseye
+Adam Alti
+Stephen McNally
