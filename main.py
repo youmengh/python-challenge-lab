@@ -1,64 +1,43 @@
-import config
+import config as config
 import requests
 
 def input_valid(user):
-    if (not user.isalpha() and len(user) > 0):
-        print("Invalid input (enter only alphabets)")
+    if (len(user) <= 0):
         return False
+    for char in user:
+        if not (char.isalpha() or char.isspace()):
+            return False
+    return True
+
+def inputs():
+    #enter inputs
+    city = input('Enter the city (no abbreviations): ')
+    while (not input_valid(city)):
+        city = input("Invalid input, Try again: ")
+
+    state = input('Enter the State (no abbreviations): ')
+    while (not input_valid(state) ):
+        state = input("Invalid input, Try again: ")
+
+    unit = input('Enter C, F, or K to specify the unit: ')
+    while unit.upper() not in ('C', 'F', 'K'):
+        unit = input('Please select one of the three Availible options (C, F, or K): ')
+    
+    if (unit == "C"):
+        unit = "metric"
+    elif(unit == "F"):
+        unit = "imperial"
     else:
-        return True
+        unit = ""
 
-# def inputs():
-#     #enter inputs
-#     x = input('Enter the city (no abbreviations)')
-#     while (not input_valid(x)):
-#         x = input("Invalid input, Try again")
-
-#     y = input('Enter the State (no abbreviations)')
-#     while (not input_valid(y) ):
-#         y = input('Enter the State (no abbreviations)')
-#     return x,y
-
-# def inputs():
-#     x = input('Enter valid City')
-#     y = input('Enter valid State/country')
-#     if (not input_valid(x) or not input_valid(y)):
-#         x=""
-#         y=""
-#         return x,y
-#     else:
-#         return x,y
-
-# x,y = inputs()
-
-# if (x == ""):
-#     print('Invalid input try again')
-#     inputs()
+    return city, state, unit
 
 
-# user = ""
-# while (input_valid(user) == False):
-#     user.input('Enter the city (no abbreviations)')
-# x = user
-# user = ""
-# while (input_valid(user) == False):
-#     user.input('Enter the state (no abbreviations)')
-# y = user
+#city,state, unit = inputs()
+userInput = {k:v for (k,v) in zip(("city", "state", "unit"), inputs())}
+# print(userInput)
 
 
-""" x = input('Enter the city (no abbreviations)')
-y = input('Enter the state (no abbreviations)')
-
-print('Enter C, F or K for me')
-z = input()
-unit = ""
-if (z == "C"):
-    unit = "metric"
-elif(z == "F"):
-    unit = "imperial"
-else:
-    unit = ""
- """
 # validate user inputs
 # user should not enter a number
 
@@ -70,7 +49,7 @@ def request_data(userInput):
     response = None
     try:
         response = requests.get(
-        f"http://api.openweathermap.org/data/2.5/weather?q={userInput.city},{userInput.state}&limit=1&appid={config.api_key}&units={userInput.unit}")
+        f"http://api.openweathermap.org/data/2.5/weather?q={userInput['city']},{userInput['state']}&limit=1&appid={config.api_key}&units={userInput['unit']}")
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -79,17 +58,25 @@ def request_data(userInput):
     except ValueError:
         print("Invalid JSON")
         exit(0)
-    finally:
-        return None
+    # finally:
+    #     return None
+
 def display_weather(userInput, data):
     units = None 
     temp = data['main']['temp']
-    weather = data['weather']['main']
-    if (userInput.unit== "metric"):
-        units = "Fahrenheit"
-    elif(userInput.unit== "imperial"):
+    #print(data['weather'])
+    weather = data['weather'][0]['main']
+    if (userInput['unit']== "metric"):
         units = "Celsius"
+    elif(userInput['unit']== "imperial"):
+        units = "Fahrenheit"
     else:
         units = "Kelvin"
-    Weather_message = (f"The weather in {userInput.city}, {userInput.state} is {weather} with temperature at: {temp} {units}")
+    Weather_message = (f"The weather in {userInput['city']}, {userInput['state']} is {weather.lower()} with temperature at: {temp} degrees {units.lower()}.")
     print(Weather_message)
+
+
+# retrieve data
+data = request_data(userInput)
+# displays message
+display_weather(userInput, data)
