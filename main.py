@@ -1,4 +1,4 @@
-import config.config as config
+import config as config
 import requests
 
 def input_valid(user):
