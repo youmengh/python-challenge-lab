@@ -37,9 +37,7 @@ print(userInput)
 
 
 
-city = "columbia"
-state = "maryland"
-unit = "metric"
+
 
 
 
