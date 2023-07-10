@@ -1,3 +1,4 @@
+import config
 import requests
 
 def input_valid(user):
@@ -30,9 +31,9 @@ def inputs():
     return city, state, unit
 
 
-city,state, unit = inputs()
-
-
+#city,state, unit = inputs()
+userInput = {k:v for (k,v) in zip(("city", "state", "unit"), inputs())}
+print(userInput)
 
 
 
@@ -48,19 +49,33 @@ unit = "metric"
 # user should not enter a number
 
 
-response = None
-data = None
+
 
 # validate api call
-try:
-    response = requests.get(
-        f"http://api.openweathermap.org/data/2.5/weather?q={city},{state}&limit=1&appid=51feb6438334e6502cf871203e59a9af&units={unit}")
-    response.raise_for_status()
-    data = response.json()
-except requests.exceptions.RequestException as e:
-    print("An error occurred: ", e)
-    exit(0)
-except ValueError:
-    print("Invalid JSON")
-    exit(0)
-
+def request_data(userInput):
+    response = None
+    try:
+        response = requests.get(
+        f"http://api.openweathermap.org/data/2.5/weather?q={userInput.city},{userInput.state}&limit=1&appid={config.api_key}&units={userInput.unit}")
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print("An error occurred: ", e)
+        exit(0)
+    except ValueError:
+        print("Invalid JSON")
+        exit(0)
+    finally:
+        return None
+def display_weather(userInput, data):
+    units = None 
+    temp = data['main']['temp']
+    weather = data['weather']['main']
+    if (userInput.unit== "metric"):
+        units = "Fahrenheit"
+    elif(userInput.unit== "imperial"):
+        units = "Celsius"
+    else:
+        units = "Kelvin"
+    Weather_message = (f"The weather in {userInput.city}, {userInput.state} is {weather} with temperature at: {temp} {units}")
+    print(Weather_message)
