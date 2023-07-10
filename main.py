@@ -67,9 +67,9 @@ def display_weather(userInput, data):
     #print(data['weather'])
     weather = data['weather'][0]['main']
     if (userInput['unit']== "metric"):
-        units = "Fahrenheit"
-    elif(userInput['unit']== "imperial"):
         units = "Celsius"
+    elif(userInput['unit']== "imperial"):
+        units = "Fahrenheit"
     else:
         units = "Kelvin"
     Weather_message = (f"The weather in {userInput['city']}, {userInput['state']} is {weather.lower()} with temperature at: {temp} degrees {units.lower()}.")
