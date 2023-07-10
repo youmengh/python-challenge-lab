@@ -1,11 +1,13 @@
-import config
+import config.config as config
 import requests
 
 def input_valid(user):
-    if (not user.isalpha() or not len(user) > 0):
+    if (len(user) <= 0):
         return False
-    else:
-        return True
+    for char in user:
+        if not (char.isalpha() or char.isspace()):
+            return False
+    return True
 
 def inputs():
     #enter inputs
@@ -33,14 +35,7 @@ def inputs():
 
 #city,state, unit = inputs()
 userInput = {k:v for (k,v) in zip(("city", "state", "unit"), inputs())}
-print(userInput)
-
-
-
-
-
-
-
+# print(userInput)
 
 
 # validate user inputs
@@ -54,7 +49,7 @@ def request_data(userInput):
     response = None
     try:
         response = requests.get(
-        f"http://api.openweathermap.org/data/2.5/weather?q={userInput.city},{userInput.state}&limit=1&appid={config.api_key}&units={userInput.unit}")
+        f"http://api.openweathermap.org/data/2.5/weather?q={userInput['city']},{userInput['state']}&limit=1&appid={config.api_key}&units={userInput['unit']}")
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -63,17 +58,25 @@ def request_data(userInput):
     except ValueError:
         print("Invalid JSON")
         exit(0)
-    finally:
-        return None
+    # finally:
+    #     return None
+
 def display_weather(userInput, data):
     units = None 
     temp = data['main']['temp']
-    weather = data['weather']['main']
-    if (userInput.unit== "metric"):
+    #print(data['weather'])
+    weather = data['weather'][0]['main']
+    if (userInput['unit']== "metric"):
         units = "Fahrenheit"
-    elif(userInput.unit== "imperial"):
+    elif(userInput['unit']== "imperial"):
         units = "Celsius"
     else:
         units = "Kelvin"
-    Weather_message = (f"The weather in {userInput.city}, {userInput.state} is {weather} with temperature at: {temp} {units}")
+    Weather_message = (f"The weather in {userInput['city']}, {userInput['state']} is {weather.lower()} with temperature at: {temp} degrees {units.lower()}.")
     print(Weather_message)
+
+
+# retrieve data
+data = request_data(userInput)
+# displays message
+display_weather(userInput, data)
