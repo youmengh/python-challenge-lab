@@ -9,11 +9,9 @@ Part 1.1 - API
 - temp = response.json()['main']['temp']
 
 Part 1.2 - BDD/ATDD
-- Validate User Input:
-- Given the task of getting the city name from user input, when user inputs the city, state, unit, they should be validated before passing to api call, then user input can be passed on to the api call after validation.
+- Validate User Input: Given the task of getting the city name from user input, when user inputs the city, state, unit, they should be validated before passing to api call, then user input can be passed on to the api call after validation.
 
-Validate API Call:
-- Given the task of making an API call, when we get the response, it should be code 200, then we can extract the result and return it to user.
+- Validate API Call: Given the task of making an API call, when we get the response, it should be code 200, then we can extract the result and return it to user.
 
 Part 1.3 - Modules
 - import request
