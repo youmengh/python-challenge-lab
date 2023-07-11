@@ -61,7 +61,7 @@ def request_data(userInput):
     # finally:
     #     return None
 
-def display_weather(userInput, data):
+def weather_message(userInput, data):
     units = None 
     temp = data['main']['temp']
     #print(data['weather'])
@@ -72,11 +72,10 @@ def display_weather(userInput, data):
         units = "Fahrenheit"
     else:
         units = "Kelvin"
-    Weather_message = (f"The weather in {userInput['city']}, {userInput['state']} is {weather.lower()} with temperature at: {temp} degrees {units.lower()}.")
-    print(Weather_message)
+    return (f"The weather in {userInput['city']}, {userInput['state']} is {weather.lower()} with temperature at: {temp} degrees {units.lower()}.")
 
 
 # retrieve data
 data = request_data(userInput)
 # displays message
-display_weather(userInput, data)
+print(weather_message(userInput, data))
