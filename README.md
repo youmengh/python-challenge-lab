@@ -3,7 +3,7 @@
 API as its back end.
 ### Part 1.1 - API
 - Use the following endpoint
-- http://api.openweathermap.org/data/2.5/weather?q=London&appid=51feb6438334e6502cf871203e59a9af
+  - http://api.openweathermap.org/data/2.5/weather?q=London&appid=51feb6438334e6502cf871203e59a9af
 
 - Store result in a variable called "response"
 
@@ -18,7 +18,7 @@ API as its back end.
 
 ### Part 1.3 - Modules
 - import request
-Part 1.4 Testing
+### Part 1.4 Testing
 - Testing api request
 - Testing output message
 - to run Test: pytest -s
