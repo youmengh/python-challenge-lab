@@ -11,21 +11,21 @@ def input_valid(user):
 
 def inputs():
     #enter inputs
-    city = input('Enter the city (no abbreviations): ')
+    city = input('Enter the city (no abbreviations): ').strip()
     while (not input_valid(city)):
-        city = input("Invalid input, Try again: ")
+        city = input("Invalid input, Try again: ").strip()
 
-    state = input('Enter the State (no abbreviations): ')
+    state = input('Enter the State (no abbreviations): ').strip()
     while (not input_valid(state) ):
-        state = input("Invalid input, Try again: ")
+        state = input("Invalid input, Try again: ").strip()
 
     unit = input('Enter C, F, or K to specify the unit: ')
     while unit.upper() not in ('C', 'F', 'K'):
         unit = input('Please select one of the three Availible options (C, F, or K): ')
     
-    if (unit == "C"):
+    if (unit.upper() == "C"):
         unit = "metric"
-    elif(unit == "F"):
+    elif(unit.upper() == "F"):
         unit = "imperial"
     else:
         unit = ""
